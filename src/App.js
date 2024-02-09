@@ -3,6 +3,7 @@ import CarouselUno from "./home-components/carousel";
 import About from "./home-components/about";
 import Counter from "./home-components/counter";
 import BookingsForm from "./home-components/bookings-form";
+import GalleryMedia from "./home-components/galleryMediaCarousel";
 import Gallery from "./home-components/galleria";
 import Testimonials from "./home-components/testimonials";
 import Rooms from "./home-components/camere";

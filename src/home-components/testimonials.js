@@ -54,8 +54,8 @@ export default function CarouselTestimonials() {
         {Recenzioni.map((content, index) => (
           <Carousel.Item key={index}>
             <Carousel.Caption key={index.id}>
-              <p>{content.text}</p>
-              <p>{content.testimone}</p>
+              <p className="small-testimonials">{content.text}</p>
+              <p className="small-testimonials">{content.testimone}</p>
             </Carousel.Caption>
           </Carousel.Item>
         ))}

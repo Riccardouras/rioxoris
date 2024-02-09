@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from "styled-components";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,6 +6,7 @@ import { faSpoon } from "@fortawesome/free-solid-svg-icons";
 import StyledButton from "../components/buttonRio";
 import { NavLink } from "react-bootstrap";
 import { images } from "../data/imagesgallery";
+import GalleryMedia from "./galleryMediaCarousel";
 
 const StyledOverlay = styled.div`
   position: relative;
@@ -32,10 +33,23 @@ export default function Gallery({ id }) {
   const shuffledArray = images.sort((a, b) => 0.5 - Math.random());
 
   const [filter, setFilter] = useState("agriturismo");
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
 
   const handleFilter = (category) => {
     setFilter(category);
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth > 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const renderImages = () => {
     let filteredImages = [];
@@ -82,8 +96,10 @@ export default function Gallery({ id }) {
       )
     );
   };
+
   return (
     <Container id={id}>
+      {isDesktop ? null : <GalleryMedia id="gallery-media" />}
       <div className="mb-5 text-center">
         <span className="decoro-small decoro">Scopri</span>
         <h2 className="titolo-small titolo">La Nostra Galleria</h2>
@@ -139,7 +155,6 @@ export default function Gallery({ id }) {
           hcolor={"#fff"}
           size={"10px 30px"}
         />
-
         <StyledButton
           onclick={() => handleFilter("agriturismo")}
           text="Agriturismo"
@@ -151,8 +166,7 @@ export default function Gallery({ id }) {
           size={"10px 30px"}
         />
       </div>
-
-      {renderImages()}
+      {isDesktop && renderImages()}
     </Container>
   );
 }
